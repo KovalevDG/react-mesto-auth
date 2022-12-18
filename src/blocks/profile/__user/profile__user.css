@@ -1,0 +1,23 @@
+.profile__user {
+	max-width: 500px;
+	display: grid;
+	grid-template-areas: 
+		"name edit-button"
+		"activity activity";
+	grid-column-gap: 18px;
+	grid-row-gap: 16px;
+	align-content: center;
+	align-items: center;
+	padding-left: 30px;
+	padding-right: 18px;
+}
+
+@media all and (max-width: 670px) {
+	.profile__user {
+		padding-left: 19px;
+		padding-right: 19px;
+		grid-column-gap: 10px;
+		grid-row-gap: 14px;
+		align-items: baseline;
+	}
+}

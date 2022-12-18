@@ -1,0 +1,19 @@
+.profile__user-job {
+	grid-area: activity;
+	margin: 0;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 22px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media all and (max-width: 670px) {
+	.profile__user-job {
+		text-align: center;
+		font-size: 14px;
+		line-height: 17px;
+		padding-bottom: 36px;
+	}
+}
