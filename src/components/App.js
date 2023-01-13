@@ -6,8 +6,12 @@ import AddPlacePopup from './AddPlacePopup';
 import React from 'react';
 import { api } from '../utils/api.js';
 import { CurrentUserContext, currentUser } from '../contexts/CurrentUserContext';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute";
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import Login from './Login';
+import Register from './Register';
 
 class App extends React.Component {
   static contextType = CurrentUserContext;
@@ -23,6 +27,7 @@ class App extends React.Component {
         info: '#',
       },
       currentUser: currentUser,
+      loggedIn: false,
     }
   }
 
@@ -153,13 +158,32 @@ class App extends React.Component {
       <div className='page'>
         <div className='page__content'>
           <Header />
-          <CurrentUserContext.Provider value={this.state.currentUser}>
-            <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardClick={this.handleCardClick} cards={this.state.cards} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete} />
-            <Footer />
-            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} />
-            <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} onUpdateAvatar={this.handleUpdateAvatar} />
-            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} onAddPlace={this.handleAddPlaceSubmit} />
-          </CurrentUserContext.Provider>
+            <CurrentUserContext.Provider value={this.state.currentUser}>
+              <Routes>
+                <Route path="/" element={ProtectedRoute}>
+                  <Route path="/" element={
+                    <Main onEditProfile={this.handleEditProfileClick} 
+                      onAddPlace={this.handleAddPlaceClick}
+                      onEditAvatar={this.handleEditAvatarClick}
+                      onCardClick={this.handleCardClick}
+                      cards={this.state.cards}
+                      onCardLike={this.handleCardLike}
+                      onCardDelete={this.handleCardDelete}
+                      loggedIn={this.state.loggedIn}
+                    />
+                  } />
+                </Route>
+              </Routes>  
+              <Routes>
+                <Route path="/" element={this.state.loggedIn ? <Navigate to="/" /> : <Navigate to="/sing-in" replace/>} />
+                <Route path="/sign-in" element={<Login />} />
+                <Route path="/sign-up" element={<Register />} />
+              </Routes>
+              <Footer />
+              <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} />
+              <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} onUpdateAvatar={this.handleUpdateAvatar} />
+              <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} onAddPlace={this.handleAddPlaceSubmit} />
+            </CurrentUserContext.Provider>
           <ImagePopup card={this.state.card}  onClose={this.closeAllPopups} />
         </div>
       </div>

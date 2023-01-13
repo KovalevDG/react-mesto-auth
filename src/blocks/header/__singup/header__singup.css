@@ -1,0 +1,14 @@
+.header__singup {
+    color: #FFF;
+    text-decoration: none;
+    margin: 0;
+    padding: 51px 0 46px 0;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+.header__singup:hover {
+    opacity: .6;
+	cursor: pointer;
+}
