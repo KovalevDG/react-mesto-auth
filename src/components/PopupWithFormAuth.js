@@ -4,7 +4,7 @@ import Form from './Form';
 import Input from './Input';
 import Button from './ButtonSubmit';
 
-function PopupWithForm(props) {
+function PopupWithFormAuth(props) {
    return (
       <Popup name={props.name} title={props.title} isOpen={props.isOpen} onClose={props.onClose}>
          <Form name={props.name} onSubmit={props.onSubmit}>
@@ -19,4 +19,4 @@ function PopupWithForm(props) {
    );
 }
 
-export default PopupWithForm;
+export default PopupWithFormAuth;

@@ -6,7 +6,7 @@ import AddPlacePopup from './AddPlacePopup';
 import React from 'react';
 import { api } from '../utils/api.js';
 import { CurrentUserContext, currentUser } from '../contexts/CurrentUserContext';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Redirect, Navigate, Link } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -21,6 +21,7 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
+      isAuthPopupOpen: true,
       cards: [],
       card: {
         selectedCard: false,
@@ -160,8 +161,8 @@ class App extends React.Component {
           <Header />
             <CurrentUserContext.Provider value={this.state.currentUser}>
               <Routes>
-                <Route path="/" element={ProtectedRoute}>
-                  <Route path="/" element={
+                <Route path='/' element={
+                  <ProtectedRoute>
                     <Main onEditProfile={this.handleEditProfileClick} 
                       onAddPlace={this.handleAddPlaceClick}
                       onEditAvatar={this.handleEditAvatarClick}
@@ -170,15 +171,13 @@ class App extends React.Component {
                       onCardLike={this.handleCardLike}
                       onCardDelete={this.handleCardDelete}
                       loggedIn={this.state.loggedIn}
-                    />
-                  } />
+                      />
+                  </ProtectedRoute>
+                } >
                 </Route>
-              </Routes>  
-              <Routes>
-                <Route path="/" element={this.state.loggedIn ? <Navigate to="/" /> : <Navigate to="/sing-in" replace/>} />
                 <Route path="/sign-in" element={<Login />} />
                 <Route path="/sign-up" element={<Register />} />
-              </Routes>
+              </Routes>  
               <Footer />
               <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} />
               <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} onUpdateAvatar={this.handleUpdateAvatar} />
