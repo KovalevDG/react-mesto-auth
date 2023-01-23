@@ -1,6 +1,7 @@
 import React from "react";
 
 function Popup(props) {
+   // console.log(`isOpen from ${props.name} ${props.isOpen}`);
    return (
       <div className={`popup popup-${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
          <div className={`popup-${props.name}__container`}>

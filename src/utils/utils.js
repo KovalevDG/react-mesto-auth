@@ -1,4 +1,6 @@
 const TITLE_EDIT_PROFILE = 'Редактировать профиль';
+const TITLE_USER_LOGIN = 'Вход';
+const TITLE_USER_REGISTER = 'Регистрация'; 
 const TITLE_ADD_CARD = 'Новое место';
 const TITLE_EDIT_AVATAR = 'Обновить аватар';
 const TITLE_DELETE_CARD = 'Вы уверены?';
@@ -15,6 +17,20 @@ const PROFILE_EDIT = {
        inputPlaceholder: 'О себе',
      }],
    submitText: 'Сохранить',
+};
+
+const USER_LOGIN = {
+  inputs: [{
+    inputId: 'user-name',
+    inputName: 'name',
+    inputPlaceholder: 'Email',
+  },
+    {
+      inputId: 'user-password',
+      inputName: 'password',
+      inputPlaceholder: 'Пароль',
+    }],
+  submitText: 'Войти',
 };
  
 const CARD_ADD = {
@@ -45,5 +61,17 @@ const CARD_DELETE = {
   submitText: 'Да',
 }
 
-export {TITLE_EDIT_PROFILE, TITLE_ADD_CARD, TITLE_EDIT_AVATAR, TITLE_DELETE_CARD, PROFILE_EDIT, CARD_ADD, AVATAR_EDIT, CARD_DELETE};
+export {
+  TITLE_EDIT_PROFILE,
+  TITLE_USER_LOGIN,
+  TITLE_USER_REGISTER,
+  TITLE_ADD_CARD,
+  TITLE_EDIT_AVATAR,
+  TITLE_DELETE_CARD,
+  PROFILE_EDIT,
+  USER_LOGIN,
+  CARD_ADD,
+  AVATAR_EDIT,
+  CARD_DELETE
+};
 

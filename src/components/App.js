@@ -142,6 +142,18 @@ class App extends React.Component {
     this.closeAllPopups();
   }
 
+  handleLoginUser = () => {
+    api.getUserInfo
+    .then((user) => {
+      this.setState({
+          currentUser: user,
+        });
+     })
+     .catch(err => {
+        console.log(err);
+     });
+  }
+
   closeAllPopups = () => {
     this.setState({
       isEditProfilePopupOpen: false,
@@ -175,8 +187,8 @@ class App extends React.Component {
                   </ProtectedRoute>
                 } >
                 </Route>
-                <Route path="/sign-in" element={<Login />} />
-                <Route path="/sign-up" element={<Register />} />
+                <Route path="/sign-in" element={<Login name={'login'} onUpdateUser={this.handleLoginUser} />} />
+                {/* <Route path="/sign-up" element={<Register />} /> */}
               </Routes>  
               <Footer />
               <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} />

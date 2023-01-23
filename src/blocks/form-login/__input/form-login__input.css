@@ -1,0 +1,19 @@
+.form-login__input {
+	width: 358px;
+	height: 27px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	border: none;
+	border-bottom: 1px solid rgba(3, 3, 3, 0.2);
+	padding: 0 0 13px 0;
+	box-sizing: border-box;
+	outline: 0;
+	background-color: #E5E5E5;
+}
+
+@media all and (max-width: 597px) {
+	.form-login__input {
+		width: 238px;
+	}
+}
