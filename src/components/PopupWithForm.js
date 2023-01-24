@@ -10,10 +10,10 @@ function PopupWithForm(props) {
          <Form name={props.name} onSubmit={props.onSubmit}>
             {  
                props.featuresInputForm.inputs.map((input) => {
-                  return (<Input key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={props.currentUser} innerRef={props.innerRef} onChange={props.onChange} />)
+                  return (<Input class='popup__input' key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={props.currentUser} innerRef={props.innerRef} onChange={props.onChange} />)
                })                       
             }
-            <Button submitText={props.featuresInputForm.submitText} />
+            <Button class='popup' submitText={props.featuresInputForm.submitText} />
          </Form>
       </Popup>
    );

@@ -4,6 +4,7 @@ import Form from './Form';
 import Input from './Input';
 import { USER_LOGIN, TITLE_USER_LOGIN } from '../utils/utils'; 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ButtonSubmit from './ButtonSubmit';
 
 class Login extends React.Component {
 
@@ -18,11 +19,11 @@ class Login extends React.Component {
             <h3 className={`form-login__title`}>{TITLE_USER_LOGIN}</h3>
             {
               USER_LOGIN.inputs.map((input) => {
-                  return (<Input key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={''} innerRef={this.props.innerRef} onChange={this.props.onChange} />)
+                  return (<Input class='form-login__input' key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={''} innerRef={this.props.innerRef} onChange={this.props.onChange} />)
                })
-            }  
+            }
+            <ButtonSubmit class='form-login' submitText={USER_LOGIN.submitText} />
           </Form>
-          {/* <AuthPopup isOpen={this.props.isOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} /> */}
         </div>
       </div>
     );    

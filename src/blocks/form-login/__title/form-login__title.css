@@ -1,3 +1,10 @@
 .form-login__title {
+    width: 358px;
+    height: 29px;
+    margin: 0;
+    padding: 60px 0 50px 0;
     text-align: center;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
 }

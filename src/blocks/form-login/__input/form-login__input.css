@@ -5,11 +5,12 @@
 	font-size: 14px;
 	line-height: 17px;
 	border: none;
-	border-bottom: 1px solid rgba(3, 3, 3, 0.2);
+	border-bottom: 2px solid #CCCCCC;
 	padding: 0 0 13px 0;
 	box-sizing: border-box;
 	outline: 0;
-	background-color: #E5E5E5;
+	background-color: #000000;
+	color: #CCCCCC;
 }
 
 @media all and (max-width: 597px) {
