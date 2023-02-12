@@ -6,10 +6,11 @@ import AddPlacePopup from './AddPlacePopup';
 import React from 'react';
 import { api } from '../utils/api.js';
 import { CurrentUserContext, currentUser } from '../contexts/CurrentUserContext';
-import { Route, Routes, Redirect, Navigate, Link } from 'react-router-dom';
+import { Navigate, Route, Routes} from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import * as mestoAuth from '../utils/mestoAuth.js';
 import Login from './Login';
 import Register from './Register';
 
@@ -29,6 +30,8 @@ class App extends React.Component {
       },
       currentUser: currentUser,
       loggedIn: false,
+      headerLink: 'Регистрация',
+      headerRoute: 'sign-in',
     }
   }
 
@@ -142,16 +145,20 @@ class App extends React.Component {
     this.closeAllPopups();
   }
 
-  handleLoginUser = () => {
-    api.getUserInfo
-    .then((user) => {
-      this.setState({
-          currentUser: user,
-        });
-     })
-     .catch(err => {
+  handleChangeHeaderLink = (headerLink) => {
+    this.setState({ headerLink: headerLink });
+  }
+
+  handleRegisterUser = (userData) => {
+    mestoAuth.register(userData)
+      .then((res) => {
+        console.log(res);
+        Navigate("/sign-in");
+      })
+      .catch(err => {
         console.log(err);
-     });
+      });
+      
   }
 
   closeAllPopups = () => {
@@ -166,11 +173,18 @@ class App extends React.Component {
     });
   }
 
+  switchPage = (headerLink, headerRoute) => {
+    this.setState({
+      headerLink: headerLink,
+      headerRoute: headerRoute,
+    })
+  }
+
   render() {
     return (
       <div className='page'>
         <div className='page__content'>
-          <Header />
+          <Header headerLink={this.state.headerLink} headerRoute={this.state.headerRoute} switchPage={this.switchPage} />
             <CurrentUserContext.Provider value={this.state.currentUser}>
               <Routes>
                 <Route path='/' element={
@@ -187,8 +201,8 @@ class App extends React.Component {
                   </ProtectedRoute>
                 } >
                 </Route>
-                <Route path="/sign-in" element={<Login name={'login'} onUpdateUser={this.handleLoginUser} />} />
-                {/* <Route path="/sign-up" element={<Register />} /> */}
+              <Route path="/sign-in" element={<Login name={'login'} onUpdateUser={this.handleLoginUser} switchPage={this.switchPage} changeHeaderLink={this.handleChangeHeaderLink} />} />
+              <Route path="/sign-up" element={<Register switchPage={this.switchPage} changeHeaderLink={this.handleChangeHeaderLink} handleRegister={ this.handleRegisterUser } />} />
               </Routes>  
               <Footer />
               <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} onUpdateUser={this.handleUpdateUser} />

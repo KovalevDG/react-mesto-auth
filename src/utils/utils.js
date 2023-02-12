@@ -1,9 +1,10 @@
 const TITLE_EDIT_PROFILE = 'Редактировать профиль';
 const TITLE_USER_LOGIN = 'Вход';
-const TITLE_USER_REGISTER = 'Регистрация'; 
+const TITLE_USER_SIGNUP = 'Регистрация';
 const TITLE_ADD_CARD = 'Новое место';
 const TITLE_EDIT_AVATAR = 'Обновить аватар';
 const TITLE_DELETE_CARD = 'Вы уверены?';
+const BASE_URL = 'https://auth.nomoreparties.co';
 
 const PROFILE_EDIT = {
    inputs: [{
@@ -31,6 +32,21 @@ const USER_LOGIN = {
       inputPlaceholder: 'Пароль',
     }],
   submitText: 'Войти',
+};
+
+const USER_SIGNUP = {
+  inputs: [{
+    inputId: 'user-name',
+    inputName: 'email',
+    inputPlaceholder: 'Email',
+    inputType: 'email',
+  },
+    {
+      inputId: 'user-password',
+      inputName: 'password',
+      inputPlaceholder: 'Пароль',
+    }],
+  submitText: 'Зарегистрироваться',
 };
  
 const CARD_ADD = {
@@ -64,12 +80,14 @@ const CARD_DELETE = {
 export {
   TITLE_EDIT_PROFILE,
   TITLE_USER_LOGIN,
-  TITLE_USER_REGISTER,
+  TITLE_USER_SIGNUP,
   TITLE_ADD_CARD,
   TITLE_EDIT_AVATAR,
   TITLE_DELETE_CARD,
+  BASE_URL,
   PROFILE_EDIT,
   USER_LOGIN,
+  USER_SIGNUP,
   CARD_ADD,
   AVATAR_EDIT,
   CARD_DELETE

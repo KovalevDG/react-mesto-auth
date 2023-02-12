@@ -3,12 +3,16 @@ import { NavLink } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
 class Header extends React.Component {
+   constructor(props) {
+      super(props);
+      console.log(this.props.headerRoute);
+   }
    
    render() {
       return (
          <header className="header">
             <img className="header__logo" src={logo} alt="логатип сайта" />
-            <NavLink to="/sing-in" className={({isActive}) => `header__singup ${isActive ? "header__singup_active" : ""}`}>Войти</NavLink>
+            <NavLink to={this.props.headerRoute} className={({ isActive }) => `header__singup ${isActive ? "header__singup_active" : ""}`}>{this.props.headerLink}</NavLink>
          </header>
       );
    }
