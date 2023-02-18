@@ -150,15 +150,31 @@ class App extends React.Component {
   }
 
   handleRegisterUser = (userData) => {
-    mestoAuth.register(userData)
-      .then((res) => {
-        console.log(res);
-        Navigate("/sign-in");
-      })
+    return mestoAuth.register(userData)
+      .then((res) => res)
       .catch(err => {
         console.log(err);
       });
       
+  }
+
+  handleLoginUser = (userData) => {
+    return mestoAuth.authorization(userData)
+      .then((res) => {
+        console.log(res);
+        return res.json;
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.jwt) {
+          this.setState({ loggedIn: true });
+          localStorage.setItem("jwt", data.jwt);
+
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   closeAllPopups = () => {
@@ -201,7 +217,7 @@ class App extends React.Component {
                   </ProtectedRoute>
                 } >
                 </Route>
-              <Route path="/sign-in" element={<Login name={'login'} onUpdateUser={this.handleLoginUser} switchPage={this.switchPage} changeHeaderLink={this.handleChangeHeaderLink} />} />
+              <Route path="/sign-in" element={<Login name={'login'} switchPage={this.switchPage} handleLogin={this.handleLoginUser} changeHeaderLink={this.handleChangeHeaderLink} handelLogin={this.handeleLoginUser} />} />
               <Route path="/sign-up" element={<Register switchPage={this.switchPage} changeHeaderLink={this.handleChangeHeaderLink} handleRegister={ this.handleRegisterUser } />} />
               </Routes>  
               <Footer />

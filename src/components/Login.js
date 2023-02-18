@@ -1,26 +1,63 @@
 import React from 'react';
+import { useState } from "react";
 import AuthPopup from './AuthPopup';
 import Form from './Form';
 import Input from './Input';
 import { USER_LOGIN, TITLE_USER_LOGIN } from '../utils/utils'; 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Link, useNavigate } from 'react-router-dom';
 import ButtonSubmit from './ButtonSubmit';
+import * as mestoAuth from '../utils/mestoAuth.js';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props.changeHeaderLink('Регистрация', 'sign-in');
+function Login(props) {
+
+  //props.changeHeaderLink('Регистрация', 'sign-in');
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+     "password": "",
+     "email": "",
+  });
+  const [message, setMessage] = useState("");
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
   }
 
-  render() {
+  const handleLogin = (userData) => {
+    mestoAuth.authorization(userData)
+      .then((data) => {
+        if (data.jwt) {
+          console.log(data.jwt);
+          this.setState({ loggedIn: true });
+          localStorage.setItem("jwt", data.jwt);
+          setUserData({ password: '', email: '' });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+ const onSubmit = (evt) => {
+   evt.preventDefault();
+   console.log(userData);
+   handleLogin(userData);
+   navigate('/');  
+ }
+
     return (
       <div className='form-login'>
         <div className='form-login__container'>
-          <Form name={this.props.name} onSubmit={this.props.onSubmit}>
+          <Form name={props.name} onSubmit={onSubmit}>
             <h3 className={`form-login__title`}>{TITLE_USER_LOGIN}</h3>
             {
               USER_LOGIN.inputs.map((input) => {
-                  return (<Input class='form-login__input' key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={''} innerRef={this.props.innerRef} onChange={this.props.onChange} />)
+                  return (<Input class='form-login__input' key={input.inputId} inputId={input.inputId} inputName={input.inputName} inputPlaceholder={input.inputPlaceholder} inputValue={''} innerRef={props.innerRef} onChange={handleChange} />)
               })
             }
             <ButtonSubmit class='form-login' submitText={USER_LOGIN.submitText} />
@@ -29,6 +66,5 @@ class Login extends React.Component {
       </div>
     );    
   }
-}
 
 export default Login;

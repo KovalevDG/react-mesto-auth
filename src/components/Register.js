@@ -5,8 +5,9 @@ import Input from './Input';
 import { USER_SIGNUP, TITLE_USER_SIGNUP} from '../utils/utils';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Link, useNavigate } from 'react-router-dom';
+import * as mestoAuth from '../utils/mestoAuth.js';
 
-function Register(props, { handleRegister }) {
+function Register(props) {
   const navigate = useNavigate();
    const [userData, setUserData] = useState({
       "password": "",
@@ -14,7 +15,7 @@ function Register(props, { handleRegister }) {
    });
    const [message, setMessage] = useState("");
  
-   function handleChange(evt) {
+   const handleChange = (evt) => {
      const { name, value } = evt.target;
  
      setUserData({
@@ -23,18 +24,11 @@ function Register(props, { handleRegister }) {
      });
    }
  
-   function onSubmit(evt) {
-     evt.preventDefault();
-      console.log(userData);
-      props.handleRegister(userData)
-        .then(() => {
-          setMessage("");
-          navigate("/sign-in");
-        })
-        .catch((error) => {
-          setMessage(`Что-то пошло не так! ${error} `);
-        });
-   }
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    props.handleRegister(userData);
+    navigate('/sign-in');  
+  }
 
    return (
       <div className='form-login'>

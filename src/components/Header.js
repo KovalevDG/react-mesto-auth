@@ -3,11 +3,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
 class Header extends React.Component {
-   constructor(props) {
-      super(props);
-      console.log(this.props.headerRoute);
-   }
-   
+
    render() {
       return (
          <header className="header">

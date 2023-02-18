@@ -23,7 +23,7 @@ const PROFILE_EDIT = {
 const USER_LOGIN = {
   inputs: [{
     inputId: 'user-name',
-    inputName: 'name',
+    inputName: 'email',
     inputPlaceholder: 'Email',
   },
     {

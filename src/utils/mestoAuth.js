@@ -5,35 +5,27 @@ const checkResponse = (res) => {
 }
 
 export const register = (userData) => {
-   console.log(JSON.stringify(userData));
    return fetch(`${BASE_URL}/signup`, {
       method: "POST",
-      header: {
-         "Content-Type": "aplication/json",
+      headers: {
+         "Accept": "application/json",
+         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData)
    })
       .then(checkResponse);
 }
 
-export const authorization = (password, email) => {
+export const authorization = ({ password, email }) => {
    return fetch(`${BASE_URL}/signin`, {
       method: "POST",
-      header: {
-         "Content-Type": "aplication/json",
+      headers: {
+         "Accept": "application/json",
+         "Content-Type": "application/json",
       },
       body: JSON.stringify({ password, email }),
    })
-      .then(checkResponse)
-      .then((data) => {
-         if (data.user) {
-            localStorage.setItem("jwt", data.jwt);
-            return data;
-         } else {
-            return;
-         }
-      })
-      .catch((error) => console.log(error));
+      .then(checkResponse);
 }
 
 export const getContent = (token) => {
@@ -44,6 +36,5 @@ export const getContent = (token) => {
          "Authorization": `Bearer ${token}`,
       },
    })
-      .then((res) => res.json())
-      .then((data) => data);
+      .then(checkResponse);
 }
